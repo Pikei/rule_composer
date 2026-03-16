@@ -7,3 +7,9 @@
 [submodule "dependencies/json"]
 	path = dependencies/json
 	url = https://github.com/nlohmann/json.git
+[submodule "dependencies/paho.mqtt.cpp"]
+	path = dependencies/paho.mqtt.cpp
+	url = https://github.com/eclipse-paho/paho.mqtt.cpp.git
+[submodule "dependencies/openssl"]
+	path = dependencies/openssl
+	url = https://github.com/openssl/openssl.git

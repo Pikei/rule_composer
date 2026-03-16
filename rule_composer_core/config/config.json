@@ -1,0 +1,6 @@
+{
+  "test_object": {
+    "value_int": 42,
+    "value_str": "Hello World!"
+  }
+}
