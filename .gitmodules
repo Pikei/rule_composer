@@ -13,3 +13,6 @@
 [submodule "dependencies/openssl"]
 	path = dependencies/openssl
 	url = https://github.com/openssl/openssl.git
+[submodule "dependencies/googletest"]
+	path = dependencies/googletest
+	url = https://github.com/google/googletest.git
