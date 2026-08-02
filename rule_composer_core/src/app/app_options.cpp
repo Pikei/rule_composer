@@ -3,34 +3,6 @@
  * Created by Piotr Karol 2026
  */
 #include <app/app_options.hpp>
-#include <spdlog/common.h>
-inline std::istream& operator>>(std::istream& in, spdlog::level::level_enum& level)
-{
-    std::string key;
-    in >> key;
-
-    static const std::unordered_map<std::string, spdlog::level::level_enum> level_map = {
-        { "trace", spdlog::level::trace },
-        { "debug", spdlog::level::debug },
-        { "info", spdlog::level::info },
-        { "warn", spdlog::level::warn },
-        { "error", spdlog::level::err },
-        { "critical", spdlog::level::critical },
-        { "off", spdlog::level::off }
-    };
-
-    auto it = level_map.find(key);
-    if (it != level_map.end())
-    {
-        level = it->second;
-    }
-    else
-    {
-        throw std::invalid_argument("Invalid log-level: " + key);
-    }
-
-    return in;
-}
 
 app_options::app_options() : options { PROGRAM_NAME, PROGRAM_HELP }
 {

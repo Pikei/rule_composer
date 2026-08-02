@@ -73,5 +73,6 @@ BraceWrapping:
   SplitEmptyNamespace: true
 BreakBeforeBraces: Custom
 BreakConstructorInitializers: AfterColon
+BreakAfterAttributes: Always
 PackConstructorInitializers: NextLine
 AllowAllConstructorInitializersOnNextLine: false

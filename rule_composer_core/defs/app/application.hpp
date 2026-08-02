@@ -21,8 +21,9 @@ protected:
     std::shared_ptr<spdlog::logger> logger;
 
 private:
-    spdlog::level::level_enum       parse_arg_log_level();
+    static constexpr auto           default_logger_name = "console";
     std::shared_ptr<spdlog::logger> configure_logger();
+    spdlog::level::level_enum       parse_arg_log_level();
 };
 
 #endif // RULE_COMPOSER_APPLICATION_HPP

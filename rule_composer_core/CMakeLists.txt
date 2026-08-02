@@ -6,6 +6,9 @@ set(SOURCE_FILES
         src/app/main.cpp
         src/app/application.cpp
         src/app/app_options.cpp
+        src/util/logger_creator.cpp
+        src/domain/rules/conditions/condition_group.cpp
+        src/domain/rules/conditions/condition.cpp
 )
 
 find_package(protobuf CONFIG REQUIRED)
@@ -13,7 +16,7 @@ find_package(gRPC CONFIG REQUIRED)
 
 add_executable(${APP_NAME} ${SOURCE_FILES})
 
-target_include_directories(${APP_NAME} PRIVATE defs)
+target_include_directories(${APP_NAME} PRIVATE defs defs/domain)
 
 target_link_libraries(${APP_NAME} PRIVATE
         cxxopts
