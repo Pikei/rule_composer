@@ -10,10 +10,6 @@ bool condition_group::evaluate(const context& ctx) const
     return false;
 }
 
-void condition_group::accept(const condition_visitor& visitor) const
-{
-}
-
 void condition_group::add_child(node_ptr child)
 {
 }

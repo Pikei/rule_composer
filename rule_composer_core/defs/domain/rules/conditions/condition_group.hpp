@@ -23,8 +23,6 @@ public:
     [[nodiscard]]
     bool evaluate(const context& ctx) const override;
 
-    void accept(const condition_visitor& visitor) const override;
-
     void add_child(node_ptr child);
 
     [[nodiscard]]

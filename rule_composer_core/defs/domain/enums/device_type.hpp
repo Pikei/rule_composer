@@ -1,10 +1,9 @@
 /**
- * \file abstract_device.hpp
+ * \file device_type.hpp
  * Created by Piotr Karol 2026
  */
-#ifndef RULE_COMPOSER_ABSTRACT_DEVICE_HPP
-#define RULE_COMPOSER_ABSTRACT_DEVICE_HPP
-
+#ifndef RULE_COMPOSER_DEVICE_TYPE_HPP
+#define RULE_COMPOSER_DEVICE_TYPE_HPP
 #include <cstdint>
 
 enum class device_type : std::uint8_t
@@ -32,11 +31,4 @@ inline const char* to_string(const device_type type)
     }
 }
 
-class abstract_device
-{
-public:
-    virtual ~abstract_device()  = default;
-    virtual void execute_rule() = 0;
-};
-
-#endif // RULE_COMPOSER_ABSTRACT_DEVICE_HPP
+#endif // RULE_COMPOSER_DEVICE_TYPE_HPP

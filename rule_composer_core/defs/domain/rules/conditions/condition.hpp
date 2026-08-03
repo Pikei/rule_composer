@@ -19,13 +19,9 @@ using condition_value = std::variant<std::chrono::minutes, weekday, double>;
 class condition : public condition_node
 {
 public:
-    condition(const condition_type type, const comparison_operator comparison, const condition_value value) : type(type),
-                                                                                                              comparison(comparison),
-                                                                                                              value(value) { }
+    explicit condition(condition_type type, comparison_operator comparison, condition_value value);
     [[nodiscard]]
     bool evaluate(const context& ctx) const override;
-
-    void accept(const condition_visitor& visitor) const override;
 
     [[nodiscard]]
     condition_type get_type() const
@@ -33,10 +29,13 @@ public:
         return type;
     }
 
+    [[nodiscard]]
     comparison_operator get_comparison() const
     {
         return comparison;
     }
+
+    [[nodiscard]]
     condition_value get_value() const
     {
         return value;

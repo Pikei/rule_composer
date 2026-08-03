@@ -6,9 +6,26 @@ set(SOURCE_FILES
         src/app/main.cpp
         src/app/application.cpp
         src/app/app_options.cpp
+
         src/util/logger_creator.cpp
+
+        src/domain/entities/device.cpp
+
         src/domain/rules/conditions/condition_group.cpp
         src/domain/rules/conditions/condition.cpp
+
+        src/domain/rules/commands/light/cmd_turn_on_light.cpp
+        src/domain/rules/commands/light/cmd_turn_off_light.cpp
+        src/domain/rules/commands/light/cmd_set_brightness.cpp
+        src/domain/rules/commands/light/cmd_set_light_color.cpp
+        src/domain/rules/commands/curtains/cmd_open_curtain.cpp
+        src/domain/rules/commands/curtains/cmd_close_curtain.cpp
+        src/domain/rules/commands/curtains/cmd_set_position.cpp
+        src/domain/rules/commands/socket/cmd_turn_on_socket.cpp
+        src/domain/rules/commands/socket/cmd_turn_off_socket.cpp
+        src/domain/rules/commands/thermostat/cmd_set_temperature.cpp
+
+        src/domain/rules/rule.cpp
 )
 
 find_package(protobuf CONFIG REQUIRED)
