@@ -1,6 +1,69 @@
 {
-  "test_object": {
-    "value_int": 42,
-    "value_str": "Hello World!"
-  }
+    "rooms": [
+        {
+            "id": 0,
+            "name": "Test room"
+        }
+    ],
+    "devices": [
+        {
+            "id": 0,
+            "name": "Test Light device",
+            "type": "light",
+            "room": 0,
+            "group": 0,
+            "rules": [
+                {
+                    "id": 0,
+                    "expression": {
+                        "op": "AND",
+                        "children": [
+                            {
+                                "type": "time",
+                                "comparison": "greater_equal",
+                                "value": 1200
+                            },
+                            {
+                                "op": "OR",
+                                "children": [
+                                    {
+                                        "type": "weekday",
+                                        "comparison": "equal",
+                                        "value": "saturday"
+                                    },
+                                    {
+                                        "type": "weekday",
+                                        "comparison": "equal",
+                                        "value": "sunday"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "actions": [
+                        {
+                            "type": "turn_on"
+                        },
+                        {
+                            "type": "brightness",
+                            "value": 75
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "expression": {
+                        "type": "time",
+                        "comparison": "greater_equal",
+                        "value": 1380
+                    },
+                    "actions": [
+                        {
+                            "type": "turn_off"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
