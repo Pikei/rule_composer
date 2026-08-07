@@ -26,6 +26,9 @@ set(SOURCE_FILES
         src/domain/rules/commands/thermostat/cmd_set_temperature.cpp
 
         src/domain/rules/rule.cpp
+        defs/domain/entities/group.hpp
+        src/util/json_utils.cpp
+        defs/util/json_utils.hpp
 )
 
 find_package(protobuf CONFIG REQUIRED)
@@ -45,6 +48,11 @@ target_link_libraries(${APP_NAME} PRIVATE
 
 message(STATUS "Copying config directory")
 file(COPY ${CONFIG_DIR} DESTINATION ${BUILD_DIR})
+
+message(STATUS "Setting compile definition: RUNTIME_CONFIG=${CONFIG_DIR}/config.json")
+add_compile_definitions(RUNTIME_CONFIG="${CONFIG_DIR}/config.json")
+message(STATUS "Setting compile definition: BINARY_CONFIG=${BUILD_DIR}/config/config.json")
+add_compile_definitions(BINARY_CONFIG="${BUILD_DIR}/config/config.json")
 
 if (TEST)
     add_subdirectory(test)
