@@ -10,6 +10,7 @@ set(SOURCE_FILES
         src/util/logger_creator.cpp
 
         src/domain/entities/device.cpp
+        src/domain/rules/rule.cpp
 
         src/domain/rules/conditions/condition_group.cpp
         src/domain/rules/conditions/condition.cpp
@@ -25,10 +26,7 @@ set(SOURCE_FILES
         src/domain/rules/commands/socket/cmd_turn_off_socket.cpp
         src/domain/rules/commands/thermostat/cmd_set_temperature.cpp
 
-        src/domain/rules/rule.cpp
-        defs/domain/entities/group.hpp
         src/util/json_utils.cpp
-        defs/util/json_utils.hpp
 )
 
 find_package(protobuf CONFIG REQUIRED)

@@ -5,6 +5,12 @@
             "name": "Test room"
         }
     ],
+    "groups": [
+        {
+            "id": 0,
+            "name": "Test group"
+        }
+    ],
     "devices": [
         {
             "id": 0,
