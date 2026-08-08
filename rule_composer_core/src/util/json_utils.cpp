@@ -3,7 +3,7 @@
  * Created by Piotr Karol 2026
  */
 #include <fstream>
-#include <spdlog/fmt/bundled/compile.h>
+#include <sstream>
 #include <util/json_utils.hpp>
 
 json_utils::json_utils(const logger_t& logger_) : logger { logger_ } { }
@@ -22,7 +22,7 @@ void json_utils::load_file(const std::string& file_path_)
     validate_json_path(file_path_);
 
     std::ifstream file { file_path_ };
-    if (not file.good() || !file.is_open())
+    if (!file.good() || !file.is_open())
     {
         throw std::invalid_argument { fmt::format("The file does not exist or is corrupted. Check the validity of file {}.", file_path_) };
     }
@@ -48,14 +48,14 @@ void json_utils::save_file(const std::string& file_path_)
 
     std::ofstream file { file_path_ };
 
-    if (not file.is_open())
+    if (!file.is_open())
     {
         throw std::runtime_error { fmt::format("Could not open file \"{}\" for writing.", file_path_) };
     }
 
     file << document.dump(indent);
 
-    if (not file.good())
+    if (!file.good())
     {
         throw std::runtime_error { fmt::format("Failed to write JSON document to file \"{}\".", file_path_) };
     }
@@ -93,7 +93,7 @@ void json_utils::validate_json_path(const std::string& file_path_)
         throw std::invalid_argument { fmt::format("The path {} is too short.", file_path_) };
     }
 
-    if (not has_json_extension(file_path_))
+    if (!has_json_extension(file_path_))
     {
         throw std::invalid_argument { fmt::format("The path {} does not lead to a file with the \"{}\" extension.", file_path_, ext) };
     }
@@ -108,7 +108,7 @@ bool json_utils::has_json_extension(const std::string& file_path_)
 json* json_utils::navigate(const std::string& path)
 {
     json* current = &document;
-    if ((not is_field_array(path)) && (path.find('.') == std::string::npos))
+    if ((!is_field_array(path)) && (path.find('.') == std::string::npos))
     {
         return current;
     }
@@ -120,7 +120,7 @@ json* json_utils::navigate(const std::string& path)
         }
         else
         {
-            if (not current->contains(field_name))
+            if (!current->contains(field_name))
             {
                 logger->error("Field \"{}\" does not exist.", field_name);
                 return nullptr;
@@ -146,14 +146,14 @@ json* json_utils::parse_array(const std::string& field_name, json* current) cons
     const std::string key   = field_name.substr(0, pos_start);
     const auto        index = std::stoi(field_name.substr(pos_start + 1, index_len));
 
-    if (not current->contains(key))
+    if (!current->contains(key))
     {
         logger->error("Field \"{}\" does not exist.", key);
         return nullptr;
     }
 
     auto& array = current->at(key);
-    if ((not array.is_array()) || (array.size() <= index))
+    if ((!array.is_array()) || (array.size() <= index))
     {
         logger->error("Invalid field index: \"{}[{}]\"", field_name, index);
         return nullptr;
