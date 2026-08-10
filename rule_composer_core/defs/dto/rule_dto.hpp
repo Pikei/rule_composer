@@ -14,7 +14,7 @@ struct rule_dto
 {
     rule_id                                   id;
     condition_dto                             condition;
-    std::vector<std::unique_ptr<command_dto>> actions;
+    std::vector<std::shared_ptr<command_dto>> actions;
 };
 
 #endif // RULE_COMPOSER_RULE_DTO_HPP

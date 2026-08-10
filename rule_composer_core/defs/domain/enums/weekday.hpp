@@ -9,6 +9,7 @@
 
 enum class weekday : std::uint8_t
 {
+    unknown = 0,
     monday,
     tuesday,
     wednesday,
@@ -39,6 +40,39 @@ inline const char* to_string(weekday day)
     default:
         return "unknown";
     }
+}
+
+inline weekday str_to_weekday(const std::string& str)
+{
+    if (to_string(weekday::monday) == str)
+    {
+        return weekday::monday;
+    }
+    if (to_string(weekday::tuesday) == str)
+    {
+        return weekday::tuesday;
+    }
+    if (to_string(weekday::wednesday) == str)
+    {
+        return weekday::wednesday;
+    }
+    if (to_string(weekday::thursday) == str)
+    {
+        return weekday::thursday;
+    }
+    if (to_string(weekday::friday) == str)
+    {
+        return weekday::friday;
+    }
+    if (to_string(weekday::saturday) == str)
+    {
+        return weekday::saturday;
+    }
+    if (to_string(weekday::sunday) == str)
+    {
+        return weekday::sunday;
+    }
+    return weekday::unknown;
 }
 
 #endif // RULE_COMPOSER_WEEKDAY_HPP

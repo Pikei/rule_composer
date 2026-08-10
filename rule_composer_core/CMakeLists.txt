@@ -27,6 +27,7 @@ set(SOURCE_FILES
         src/domain/rules/commands/thermostat/cmd_set_temperature.cpp
 
         src/util/json_utils.cpp
+        src/util/config_parser.cpp
 )
 
 find_package(protobuf CONFIG REQUIRED)

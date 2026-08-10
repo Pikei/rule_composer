@@ -5,15 +5,29 @@
 
 #include <app/app_options.hpp>
 #include <app/application.hpp>
-
-#include <util/logger_creator.hpp>
-
 #include <iostream>
 #include <spdlog/sinks/stdout_color_sinks-inl.h>
+#include <util/logger_creator.hpp>
 
-application::application(const cxxopts::ParseResult& args) : args(args), logger { configure_logger() }
+application::application(const cxxopts::ParseResult& args) :
+    args(args),
+    logger { configure_logger() },
+    parser(args[app_options::PARAM_CONFIG_PATH].as<std::string>(), logger)
 {
     logger->info("Application {} started", app_options::PROGRAM_NAME);
+}
+
+void application::run()
+{
+    configuration_dto config;
+    try
+    {
+        config = parser.parse_config();
+    }
+    catch (std::exception& e)
+    {
+        logger->error("Configuration parsing error: " + std::string(e.what()));
+    }
 }
 
 std::shared_ptr<spdlog::logger> application::configure_logger()

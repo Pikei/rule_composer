@@ -92,7 +92,7 @@ public:
         const auto node = navigate(path);
         if ((nullptr == node) or (node->empty()))
         {
-            throw std::invalid_argument { fmt::format("W pliku nie istnieje wartość określona ścieżką: {}", path) };
+            throw std::invalid_argument { fmt::format("Config file does not contain value: {}", path) };
         }
         try
         {
@@ -101,6 +101,36 @@ public:
         catch (nlohmann::json::exception& e)
         {
             throw std::logic_error { fmt::format("Cannot assign a value to the specified type: {}", e.what()) };
+        }
+    }
+
+    /**
+     * \brief Retrieves the optional value at the specified path in a JSON file.
+     * \tparam T Type of returned value
+     * \param path Path to value in JSON file
+     * \return Retrieved value from JSON file or \code std::nullopt\endcode if the value does not exist.
+     * \note For the following example JSON notation:
+     * \code
+     * {
+     *   "object": {
+     *     "list": [
+     *       "param": 123
+     *     ]
+     *   }
+     * }
+     * \endcode
+     * The path to the "param" field value will be "object.list[0].param"
+     */
+    template <typename T>
+    std::optional<T> get_optional(const std::string& path)
+    {
+        try
+        {
+            return get_value<T>(path);
+        }
+        catch (...)
+        {
+            return std::nullopt;
         }
     }
 
@@ -119,6 +149,24 @@ protected:
      * \brief Default file path
      */
     std::string default_file_path;
+
+    /**
+     * \brief Navigates the JSON file based on the provided resource path.
+     * \param path Path to the resource within the JSON file.
+     * \return A pointer to the JSON file fragment containing the value at the specified path, or \code nullptr\endcode if the resource was not found.
+     * \note For the following example JSON notation:
+     * \code
+     * {
+     *   "object": {
+     *     "list": [
+     *       "param": 123
+     *     ]
+     *   }
+     * }
+     * \endcode
+     * The path to the "param" field value will be "object.list[0].param"
+     */
+    json* navigate(const std::string& path);
 
 private:
     /**
@@ -144,24 +192,6 @@ private:
      * \return \code true\endcode if file path refers to a JSON file, \code false\endcode otherwise.
      */
     static bool has_json_extension(const std::string& file_path_);
-
-    /**
-     * \brief Navigates the JSON file based on the provided resource path.
-     * \param path Path to the resource within the JSON file.
-     * \return A pointer to the JSON file fragment containing the value at the specified path, or \code nullptr\endcode if the resource was not found.
-     * \note For the following example JSON notation:
-     * \code
-     * {
-     *   "object": {
-     *     "list": [
-     *       "param": 123
-     *     ]
-     *   }
-     * }
-     * \endcode
-     * The path to the "param" field value will be "object.list[0].param"
-     */
-    json* navigate(const std::string& path);
 
     /**
      * \brief Processes data stored in array format within a JSON file

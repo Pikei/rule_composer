@@ -81,6 +81,32 @@ void json_utils::print()
     logger->info("File contents: \n{}", file_contents);
 }
 
+json* json_utils::navigate(const std::string& path)
+{
+    json* current = &document;
+    if ((!is_field_array(path)) && (path.find('.') == std::string::npos))
+    {
+        return current;
+    }
+    for (auto& field_name : split_path(path))
+    {
+        if (is_field_array(field_name))
+        {
+            current = parse_array(field_name, current);
+        }
+        else
+        {
+            if (!current->contains(field_name))
+            {
+                return nullptr;
+            }
+            current = &current->at(field_name);
+        }
+    }
+
+    return current;
+}
+
 void json_utils::validate_json_path(const std::string& file_path_)
 {
     if (file_path_.empty())
@@ -103,33 +129,6 @@ bool json_utils::has_json_extension(const std::string& file_path_)
 {
     return std::equal(ext.rbegin(), ext.rend(), file_path_.rbegin(), [](char a, char b)
                       { return std::tolower(a) == std::tolower(b); });
-}
-
-json* json_utils::navigate(const std::string& path)
-{
-    json* current = &document;
-    if ((!is_field_array(path)) && (path.find('.') == std::string::npos))
-    {
-        return current;
-    }
-    for (auto& field_name : split_path(path))
-    {
-        if (is_field_array(field_name))
-        {
-            current = parse_array(field_name, current);
-        }
-        else
-        {
-            if (!current->contains(field_name))
-            {
-                logger->error("Field \"{}\" does not exist.", field_name);
-                return nullptr;
-            }
-            current = &current->at(field_name);
-        }
-    }
-
-    return current;
 }
 
 json* json_utils::parse_array(const std::string& field_name, json* current) const

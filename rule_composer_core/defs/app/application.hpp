@@ -5,6 +5,8 @@
 #ifndef RULE_COMPOSER_APPLICATION_HPP
 #define RULE_COMPOSER_APPLICATION_HPP
 
+#include "util/config_parser.hpp"
+
 #include <cxxopts.hpp>
 #include <memory>
 #include <spdlog/spdlog.h>
@@ -15,10 +17,12 @@ class application
 {
 public:
     explicit application(const cxxopts::ParseResult& args);
+    void run();
 
 protected:
     cxxopts::ParseResult            args;
     std::shared_ptr<spdlog::logger> logger;
+    config_parser                   parser;
 
 private:
     static constexpr auto           default_logger_name = "console";

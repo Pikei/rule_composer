@@ -48,10 +48,10 @@
                     },
                     "actions": [
                         {
-                            "type": "turn_on"
+                            "type": "turn_on_light"
                         },
                         {
-                            "type": "brightness",
+                            "type": "set_brightness",
                             "value": 75
                         }
                     ]
@@ -65,7 +65,7 @@
                     },
                     "actions": [
                         {
-                            "type": "turn_off"
+                            "type": "turn_off_light"
                         }
                     ]
                 }

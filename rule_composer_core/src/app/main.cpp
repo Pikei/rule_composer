@@ -11,6 +11,7 @@ int main(int argc, const char** argv)
     app_options options;
     auto        args = options.parse(argc, argv);
     application app { args };
+    app.run();
 
     return 0;
 }

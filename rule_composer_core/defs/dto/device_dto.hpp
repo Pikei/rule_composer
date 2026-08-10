@@ -18,8 +18,8 @@ struct device_dto
     device_id                   id;
     std::string                 name;
     device_type                 type;
-    room_id                     room_id;
-    std::optional<group_id>     group_id;
+    room_id                     room;
+    std::optional<group_id>     group;
     std::vector<rule_dto>       rules;
     std::vector<device_feature> features;
 };
