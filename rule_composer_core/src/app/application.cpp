@@ -5,77 +5,23 @@
 
 #include <app/app_options.hpp>
 #include <app/application.hpp>
-#include <iostream>
-#include <spdlog/sinks/stdout_color_sinks-inl.h>
-#include <util/logger_creator.hpp>
 
 application::application(const cxxopts::ParseResult& args) :
-    args(args),
-    logger { configure_logger() },
-    parser(args[app_options::PARAM_CONFIG_PATH].as<std::string>(), logger)
+    abstract_application { args, app_options::PROGRAM_NAME },
+    parser { args[app_options::PARAM_CONFIG_PATH].as<std::string>(), logger }
 {
-    logger->info("Application {} started", app_options::PROGRAM_NAME);
 }
 
-void application::run()
+void application::before_run()
 {
-    configuration_dto config;
     try
     {
-        config = parser.parse_config();
+        config_dto = parser.parse_config();
     }
     catch (std::exception& e)
     {
-        logger->error("Configuration parsing error: " + std::string(e.what()));
+        logger->error("Configuration parsing error: " + std::string { e.what() });
     }
-}
-
-std::shared_ptr<spdlog::logger> application::configure_logger()
-{
-    spdlog::level::level_enum log_level;
-    if (0 < args[app_options::PARAM_LOG_LEVEL].count())
-    {
-        try
-        {
-            log_level = parse_arg_log_level();
-        }
-        catch (std::invalid_argument& e)
-        {
-            std::cerr << e.what() << std::endl;
-            std::cout << "Setting default logger level..." << std::endl;
-            log_level = spdlog::level::info;
-        }
-    }
-    else
-    {
-        log_level = spdlog::level::trace;
-    }
-
-    return logger_creator::create_logger(default_logger_name, log_level);
-}
-
-spdlog::level::level_enum application::parse_arg_log_level()
-{
-    const auto log_level_str = args[app_options::PARAM_LOG_LEVEL].as<std::string>();
-    if (log_level_str.empty())
-    {
-        throw std::invalid_argument("Argument log-level is empty.");
-    }
-
-    const log_level_map_t level_map = {
-        { "trace", spdlog::level::trace },
-        { "debug", spdlog::level::debug },
-        { "info", spdlog::level::info },
-        { "warn", spdlog::level::warn },
-        { "error", spdlog::level::err },
-        { "critical", spdlog::level::critical },
-        { "off", spdlog::level::off }
-    };
-
-    auto it = level_map.find(log_level_str);
-    if (it != level_map.end())
-    {
-        return it->second;
-    }
-    throw std::invalid_argument("Invalid log-level: " + log_level_str);
+    engine = std::make_unique<rule_engine>(loop, logger, config_dto);
+    engine->start();
 }

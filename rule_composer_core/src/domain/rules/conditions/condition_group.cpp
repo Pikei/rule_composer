@@ -7,21 +7,29 @@
 
 bool condition_group::evaluate(const context& ctx) const
 {
+    if (op == logical_operator::AND)
+    {
+        for (const auto& child : children)
+        {
+            if (!child->evaluate(ctx))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    if (op == logical_operator::OR)
+    {
+        for (const auto& child : children)
+        {
+            if (child->evaluate(ctx))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     return false;
-}
-
-void condition_group::add_child(node_ptr child)
-{
-}
-
-iterator condition_group::begin() const
-{
-    return children.begin();
-}
-
-iterator condition_group::end() const
-{
-    return children.end();
 }
 
 logical_operator condition_group::get_logical_operator() const

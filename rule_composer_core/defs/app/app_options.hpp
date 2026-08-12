@@ -5,9 +5,8 @@
 #ifndef RULE_COMPOSER_APP_OPTIONS_HPP
 #define RULE_COMPOSER_APP_OPTIONS_HPP
 
-#include <spdlog/common.h>
-
 #include <cxxopts.hpp>
+#include <spdlog/common.h>
 
 class app_options
 {

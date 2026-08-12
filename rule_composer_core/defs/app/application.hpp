@@ -2,32 +2,25 @@
  * \file application.hpp
  * Created by Piotr Karol 2026
  */
+
 #ifndef RULE_COMPOSER_APPLICATION_HPP
 #define RULE_COMPOSER_APPLICATION_HPP
 
-#include "util/config_parser.hpp"
+#include <app/abstract_application.hpp>
+#include <rule_engine/rule_engine.hpp>
+#include <util/config_parser.hpp>
 
-#include <cxxopts.hpp>
-#include <memory>
-#include <spdlog/spdlog.h>
-
-using log_level_map_t = std::unordered_map<std::string, spdlog::level::level_enum>;
-
-class application
+class application : public abstract_application
 {
 public:
     explicit application(const cxxopts::ParseResult& args);
-    void run();
 
 protected:
-    cxxopts::ParseResult            args;
-    std::shared_ptr<spdlog::logger> logger;
-    config_parser                   parser;
+    void before_run() override;
 
-private:
-    static constexpr auto           default_logger_name = "console";
-    std::shared_ptr<spdlog::logger> configure_logger();
-    spdlog::level::level_enum       parse_arg_log_level();
+    config_parser                parser;
+    configuration_dto            config_dto;
+    std::unique_ptr<rule_engine> engine;
 };
 
 #endif // RULE_COMPOSER_APPLICATION_HPP

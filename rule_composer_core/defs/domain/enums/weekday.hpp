@@ -6,6 +6,7 @@
 #define RULE_COMPOSER_WEEKDAY_HPP
 
 #include <cstdint>
+#include <string>
 
 enum class weekday : std::uint8_t
 {

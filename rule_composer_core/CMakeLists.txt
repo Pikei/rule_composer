@@ -4,13 +4,16 @@ set(CONFIG_DIR "${CMAKE_SOURCE_DIR}/${APP_NAME}/config")
 
 set(SOURCE_FILES
         src/app/main.cpp
+        src/app/event_loop.cpp
+        src/app/abstract_application.cpp
         src/app/application.cpp
         src/app/app_options.cpp
-
-        src/util/logger_creator.cpp
+        src/app/timeout_timer.cpp
+        src/app/repeat_timer.cpp
 
         src/domain/entities/device.cpp
         src/domain/rules/rule.cpp
+        src/domain/rules/context.cpp
 
         src/domain/rules/conditions/condition_group.cpp
         src/domain/rules/conditions/condition.cpp
@@ -28,6 +31,8 @@ set(SOURCE_FILES
 
         src/util/json_utils.cpp
         src/util/config_parser.cpp
+
+        src/rule_engine/rule_engine.cpp
 )
 
 find_package(protobuf CONFIG REQUIRED)
@@ -43,6 +48,7 @@ target_link_libraries(${APP_NAME} PRIVATE
         nlohmann_json::nlohmann_json
         protobuf::libprotobuf
         gRPC::grpc++
+        event_core
 )
 
 message(STATUS "Copying config directory")

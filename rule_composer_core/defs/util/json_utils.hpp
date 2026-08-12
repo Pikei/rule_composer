@@ -124,13 +124,21 @@ public:
     template <typename T>
     std::optional<T> get_optional(const std::string& path)
     {
-        try
-        {
-            return get_value<T>(path);
-        }
-        catch (...)
+        const auto* node = navigate(path);
+
+        if (node == nullptr || node->is_null())
         {
             return std::nullopt;
+        }
+        try
+        {
+            return node->get<T>();
+        }
+        catch (const nlohmann::json::exception& e)
+        {
+            throw std::logic_error {
+                fmt::format("Cannot assign a value at '{}' to the specified type: {}", path, e.what())
+            };
         }
     }
 

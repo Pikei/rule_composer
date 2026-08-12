@@ -34,7 +34,6 @@ void json_utils::load_file(const std::string& file_path_)
     }
 
     file >> document;
-    logger->info("File \"{}\" loaded successfully.", file_path_);
 }
 
 void json_utils::load_file()
@@ -84,11 +83,7 @@ void json_utils::print()
 json* json_utils::navigate(const std::string& path)
 {
     json* current = &document;
-    if ((!is_field_array(path)) && (path.find('.') == std::string::npos))
-    {
-        return current;
-    }
-    for (auto& field_name : split_path(path))
+    for (const auto& field_name : split_path(path))
     {
         if (is_field_array(field_name))
         {
@@ -100,7 +95,13 @@ json* json_utils::navigate(const std::string& path)
             {
                 return nullptr;
             }
+
             current = &current->at(field_name);
+        }
+
+        if (current == nullptr)
+        {
+            return nullptr;
         }
     }
 

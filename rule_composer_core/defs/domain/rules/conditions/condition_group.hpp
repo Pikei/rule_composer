@@ -6,14 +6,11 @@
 #define RULE_COMPOSER_CONDITION_GROUP_HPP
 
 #include <enums/logical_operator.hpp>
-
 #include <memory>
 #include <rules/conditions/condition_node.hpp>
 #include <vector>
 
 using node_ptr      = std::unique_ptr<condition_node>;
-using children_type = std::vector<node_ptr>;
-using iterator      = children_type::const_iterator;
 
 class condition_group : public condition_node
 {
@@ -23,20 +20,12 @@ public:
     [[nodiscard]]
     bool evaluate(const context& ctx) const override;
 
-    void add_child(node_ptr child);
-
-    [[nodiscard]]
-    iterator begin() const;
-
-    [[nodiscard]]
-    iterator end() const;
-
     [[nodiscard]]
     logical_operator get_logical_operator() const;
 
 private:
     const logical_operator op;
-    children_type          children;
+    std::vector<node_ptr>  children;
 };
 
 #endif // RULE_COMPOSER_CONDITION_GROUP_HPP

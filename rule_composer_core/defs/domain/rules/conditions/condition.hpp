@@ -24,27 +24,22 @@ public:
     bool evaluate(const context& ctx) const override;
 
     [[nodiscard]]
-    condition_type get_type() const
-    {
-        return type;
-    }
+    condition_type get_type() const;
 
     [[nodiscard]]
-    comparison_operator get_comparison() const
-    {
-        return comparison;
-    }
+    comparison_operator get_comparison() const;
 
     [[nodiscard]]
-    condition_value get_value() const
-    {
-        return value;
-    }
+    condition_value get_value() const;
 
 private:
     const condition_type      type;
     const comparison_operator comparison;
     const condition_value     value;
+
+    bool evaluate_time(const context& ctx) const;
+    bool evaluate_weekday(const context& ctx) const;
+    bool evaluate_temperature(const context& ctx) const;
 };
 
 #endif // RULE_COMPOSER_CONDITION_HPP

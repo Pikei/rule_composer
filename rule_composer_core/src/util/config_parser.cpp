@@ -3,8 +3,7 @@
  * Created by Piotr Karol 2026
  */
 
-#include "rules/commands/light/cmd_set_light_color.hpp"
-
+#include <rules/commands/light/cmd_set_light_color.hpp>
 #include <util/config_parser.hpp>
 
 config_parser::config_parser(const logger_t& logger_) : json_utils(logger_)
@@ -79,8 +78,7 @@ void config_parser::parse_rules(device_dto& device, std::size_t device_index)
         const auto rule_path = fmt::format("devices[{}].rules[{}]", device_index, i);
         rule_dto   rule;
         rule.id = get_value<rule_id>(fmt::format("{}.id", rule_path));
-        condition_dto condition;
-        parse_expression(condition, fmt::format("{}.expression", rule_path));
+        parse_expression(rule.condition, fmt::format("{}.expression", rule_path));
         parse_actions(rule, rule_path);
         device.rules.push_back(rule);
     }
@@ -145,43 +143,23 @@ std::shared_ptr<command_dto> config_parser::parse_action(action_type type, const
     switch (type)
     {
     case action_type::turn_on_light:
-        return parse_action_turn_on_light(type, value_path);
     case action_type::turn_off_light:
-        return parse_action_turn_off_light(type, value_path);
+    case action_type::turn_on_socket:
+    case action_type::turn_off_socket:
+    case action_type::open_curtain:
+    case action_type::close_curtain:
+        return std::make_shared<command_dto>(type);
     case action_type::set_brightness:
-        return parse_action_set_brightness(type, value_path);
+    case action_type::set_curtain_position:
+        return std::make_shared<parametrised_command_dto<std::uint8_t>>(type, get_value<std::uint8_t>(value_path));
+    case action_type::set_temperature:
+        return std::make_shared<parametrised_command_dto<double>>(type, get_value<double>(value_path));
     case action_type::set_light_color:
         return parse_action_set_light_color(type, value_path);
-    case action_type::turn_on_socket:
-        return parse_action_turn_on_socket(type, value_path);
-    case action_type::turn_off_socket:
-        return parse_action_turn_off_socket(type, value_path);
-    case action_type::open_curtain:
-        return parse_action_open_curtain(type, value_path);
-    case action_type::close_curtain:
-        return parse_action_close_curtain(type, value_path);
-    case action_type::set_curtain_position:
-        return parse_action_set_curtain_position(type, value_path);
-    case action_type::set_temperature:
-        return parse_action_set_temperature(type, value_path);
+
     default:
         return nullptr;
     }
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_turn_on_light(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_turn_off_light(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_set_brightness(action_type type, const std::string& value_path)
-{
-    return std::make_shared<parametrised_command_dto<std::uint8_t>>(type, get_value<std::uint8_t>(value_path));
 }
 
 std::shared_ptr<command_dto> config_parser::parse_action_set_light_color(action_type type, const std::string& value_path)
@@ -190,34 +168,4 @@ std::shared_ptr<command_dto> config_parser::parse_action_set_light_color(action_
     const auto green = get_value<std::uint8_t>(fmt::format("{}.green", value_path));
     const auto blue  = get_value<std::uint8_t>(fmt::format("{}.blue", value_path));
     return std::make_shared<parametrised_command_dto<rgb_color>>(type, rgb_color { red, green, blue });
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_turn_on_socket(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_turn_off_socket(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_open_curtain(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_close_curtain(action_type type, const std::string& value_path)
-{
-    return std::make_shared<command_dto>(type);
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_set_curtain_position(action_type type, const std::string& value_path)
-{
-    return std::make_shared<parametrised_command_dto<std::uint8_t>>(type, get_value<std::uint8_t>(value_path));
-}
-
-std::shared_ptr<command_dto> config_parser::parse_action_set_temperature(action_type type, const std::string& value_path)
-{
-    return std::make_shared<parametrised_command_dto<double>>(type, get_value<double>(value_path));
 }

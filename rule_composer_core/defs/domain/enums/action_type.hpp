@@ -6,6 +6,7 @@
 #define RULE_COMPOSER_ACTION_TYPE_HPP
 
 #include <cstdint>
+#include <string>
 
 enum class action_type : std::uint8_t
 {
