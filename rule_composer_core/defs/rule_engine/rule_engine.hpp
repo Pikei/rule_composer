@@ -18,13 +18,16 @@ class rule_engine
 {
 public:
 
-    explicit rule_engine( event_loop& loop, std::shared_ptr< spdlog::logger >& logger_, configuration_dto& config );
+    explicit rule_engine( event_loop& loop, std::shared_ptr< spdlog::logger >& logger_ );
+    void parse_config_dto( const configuration_dto& config );
     void start( );
 
 private:
 
     repeat_timer                       timer;
+    context                            ctx;
     std::map< device_id, rule >        rules;
+    std::map< rule_id, bool >          triggered;
     std::shared_ptr< spdlog::logger >& logger;
 
     void evaluate_rules( );

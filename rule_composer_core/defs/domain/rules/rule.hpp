@@ -26,6 +26,9 @@ public:
     const condition_node& get_condition( ) const;
 
     [[nodiscard]]
+    rule_id get_id( ) const;
+
+    [[nodiscard]]
     action_iterator begin( ) const;
 
     [[nodiscard]]

@@ -20,7 +20,7 @@ device::device( device_id id, std::string name, device_type type, room_id room, 
     }
 }
 
-void device::add_rule( rule& new_rule )
+void device::add_rule( rule new_rule )
 {
     for ( const auto& action : new_rule )
     {

@@ -6,9 +6,8 @@
 #include <iostream>
 
 #include <app/abstract_application.hpp>
+#include <app/app_options.hpp>
 #include <spdlog/sinks/stdout_color_sinks-inl.h>
-
-#include "app/app_options.hpp"
 
 abstract_application::abstract_application( const cxxopts::ParseResult& args, const std::string& prog_name ) :
     args( args ),

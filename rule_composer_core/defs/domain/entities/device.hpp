@@ -19,7 +19,7 @@ public:
 
     explicit device( device_id id, std::string name, device_type type, room_id room, std::optional< group_id > group = std::nullopt );
 
-    void add_rule( rule& new_rule );
+    void add_rule( rule new_rule );
 
     [[nodiscard]]
     device_id get_id( ) const;

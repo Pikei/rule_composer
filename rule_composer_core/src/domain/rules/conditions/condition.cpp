@@ -49,17 +49,17 @@ bool condition::evaluate_time( const context& ctx ) const
     switch ( comparison )
     {
         case comparison_operator::equal:
-            return std::get< std::chrono::minutes >( value ) == ctx.get_current_time( );
+            return ctx.get_current_time( ) == std::get< std::chrono::minutes >( value );
         case comparison_operator::not_equal:
-            return std::get< std::chrono::minutes >( value ) != ctx.get_current_time( );
+            return ctx.get_current_time( ) != std::get< std::chrono::minutes >( value );
         case comparison_operator::greater:
-            return std::get< std::chrono::minutes >( value ) > ctx.get_current_time( );
+            return ctx.get_current_time( ) > std::get< std::chrono::minutes >( value );
         case comparison_operator::greater_equal:
-            return std::get< std::chrono::minutes >( value ) >= ctx.get_current_time( );
+            return ctx.get_current_time( ) >= std::get< std::chrono::minutes >( value );
         case comparison_operator::less:
-            return std::get< std::chrono::minutes >( value ) < ctx.get_current_time( );
+            return ctx.get_current_time( ) < std::get< std::chrono::minutes >( value );
         case comparison_operator::less_equal:
-            return std::get< std::chrono::minutes >( value ) <= ctx.get_current_time( );
+            return ctx.get_current_time( ) <= std::get< std::chrono::minutes >( value );
         default:
             return false;
     }

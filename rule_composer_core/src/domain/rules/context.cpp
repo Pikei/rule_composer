@@ -7,8 +7,13 @@
 
 std::chrono::minutes context::get_current_time( ) const
 {
-    const auto time_point = std::chrono::system_clock::now( );
-    return std::chrono::duration_cast< std::chrono::minutes >( time_point.time_since_epoch( ) );
+    const auto now = std::chrono::system_clock::now( );
+    const auto tt  = std::chrono::system_clock::to_time_t( now );
+
+    std::tm tm { };
+    localtime_r( &tt, &tm );
+
+    return std::chrono::hours { tm.tm_hour } + std::chrono::minutes { tm.tm_min };
 }
 
 weekday context::get_weekday( ) const

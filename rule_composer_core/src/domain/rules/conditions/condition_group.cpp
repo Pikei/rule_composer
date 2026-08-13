@@ -36,3 +36,8 @@ logical_operator condition_group::get_logical_operator( ) const
 {
     return op;
 }
+
+void condition_group::add( node_ptr child )
+{
+    children.push_back( std::move( child ) );
+}

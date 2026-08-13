@@ -31,6 +31,7 @@ set(SOURCE_FILES
 
         src/util/json_utils.cpp
         src/util/config_parser.cpp
+        src/util/domain_factory.cpp
 
         src/rule_engine/rule_engine.cpp
 )

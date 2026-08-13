@@ -22,6 +22,7 @@ void application::before_run( )
     {
         logger->error( "Configuration parsing error: " + std::string { e.what( ) } );
     }
-    engine = std::make_unique< rule_engine >( loop, logger, config_dto );
+    engine = std::make_unique< rule_engine >( loop, logger );
+    engine->parse_config_dto( config_dto );
     engine->start( );
 }

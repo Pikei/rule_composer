@@ -25,6 +25,8 @@ public:
     [[nodiscard]]
     logical_operator get_logical_operator( ) const;
 
+    void add( node_ptr child );
+
 private:
 
     const logical_operator  op;
