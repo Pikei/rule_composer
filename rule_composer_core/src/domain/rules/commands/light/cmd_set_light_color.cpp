@@ -9,14 +9,17 @@
 
 namespace command::light
 {
-    cmd_set_light_color::cmd_set_light_color(const rgb_color& color) : color(color) { }
+    cmd_set_light_color::cmd_set_light_color( const rgb_color& color ) : color( color )
+    {
+    }
 
-    rgb_color cmd_set_light_color::get_color() const
+    rgb_color cmd_set_light_color::get_color( ) const
     {
         return color;
     }
-    bool cmd_set_light_color::is_supported_by(device& dev) const
+
+    bool cmd_set_light_color::is_supported_by( device& dev ) const
     {
-        return dev.has_feature(device_feature::rgb_control) && (device_type::light == dev.get_type());
+        return dev.has_feature( device_feature::rgb_control ) && ( device_type::light == dev.get_type( ) );
     }
-} // command::light
+} // namespace command::light

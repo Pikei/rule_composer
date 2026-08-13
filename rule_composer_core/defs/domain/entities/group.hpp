@@ -5,8 +5,9 @@
 #ifndef RULE_COMPOSER_GROUP_HPP
 #define RULE_COMPOSER_GROUP_HPP
 
-#include <domain/id_types/id_types.hpp>
 #include <string>
+
+#include <domain/id_types/id_types.hpp>
 
 struct group
 {

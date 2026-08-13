@@ -10,9 +10,10 @@
 class condition_node
 {
 public:
-    virtual ~condition_node() = default;
+
+    virtual ~condition_node( ) = default;
     [[nodiscard]]
-    virtual bool evaluate(const context& ctx) const = 0;
+    virtual bool evaluate( const context& ctx ) const = 0;
 };
 
 #endif // RULE_COMPOSER_CONDITION_NODE_HPP

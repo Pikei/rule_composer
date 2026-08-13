@@ -5,8 +5,9 @@
 #ifndef RULE_COMPOSER_ROOM_DTO_HPP
 #define RULE_COMPOSER_ROOM_DTO_HPP
 
-#include <id_types/id_types.hpp>
 #include <string>
+
+#include <id_types/id_types.hpp>
 
 struct room_dto
 {

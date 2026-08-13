@@ -10,8 +10,8 @@
 
 namespace command::curtain
 {
-    bool cmd_open_curtain::is_supported_by(device& dev) const
+    bool cmd_open_curtain::is_supported_by( device& dev ) const
     {
-        return dev.has_feature(device_feature::position) && (device_type::curtain == dev.get_type());
+        return dev.has_feature( device_feature::position ) && ( device_type::curtain == dev.get_type( ) );
     }
-}
+} // namespace command::curtain

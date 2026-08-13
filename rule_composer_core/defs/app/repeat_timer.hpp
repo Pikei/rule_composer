@@ -6,27 +6,30 @@
 #define RULE_COMPOSER_REPEAT_TIMER_HPP
 
 #include <chrono>
-#include <event2/event.h>
 #include <functional>
+
+#include <event2/event.h>
 
 class repeat_timer
 {
 public:
-    explicit repeat_timer(event_base* base_, std::chrono::milliseconds interval_, std::function<void()> callback_);
-    ~repeat_timer();
 
-    void start();
-    void stop();
+    explicit repeat_timer( event_base* base_, std::chrono::milliseconds interval_, std::function< void( ) > callback_ );
+    ~repeat_timer( );
+
+    void start( );
+    void stop( );
 
     [[nodiscard]]
-    bool is_running() const;
+    bool is_running( ) const;
 
 private:
-    static void on_repeat(evutil_socket_t fd, short events, void* arg);
+
+    static void on_repeat( evutil_socket_t fd, short events, void* arg );
 
     event_base*               base;
     std::chrono::milliseconds interval;
-    std::function<void()>     callback;
+    std::function< void( ) >  callback;
     event*                    time_event { nullptr };
     bool                      running { false };
 };

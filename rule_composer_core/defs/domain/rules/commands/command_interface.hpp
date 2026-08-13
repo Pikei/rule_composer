@@ -10,9 +10,10 @@ class device;
 class command_interface
 {
 public:
-    virtual ~command_interface() = default;
 
-    virtual bool is_supported_by(device& dev) const = 0;
+    virtual ~command_interface( ) = default;
+
+    virtual bool is_supported_by( device& dev ) const = 0;
 };
 
 #endif // RULE_COMPOSER_COMMAND_INTERFACE_HPP

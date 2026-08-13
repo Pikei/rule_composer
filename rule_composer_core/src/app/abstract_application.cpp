@@ -3,40 +3,41 @@
  * Created by Piotr Karol 2026
  */
 
-#include "app/app_options.hpp"
+#include <iostream>
 
 #include <app/abstract_application.hpp>
-#include <iostream>
 #include <spdlog/sinks/stdout_color_sinks-inl.h>
 
-abstract_application::abstract_application(const cxxopts::ParseResult& args, const std::string& prog_name) :
-    args(args),
-    logger { configure_logger() },
+#include "app/app_options.hpp"
+
+abstract_application::abstract_application( const cxxopts::ParseResult& args, const std::string& prog_name ) :
+    args( args ),
+    logger { configure_logger( ) },
     program_name { prog_name }
 {
 }
 
-void abstract_application::run()
+void abstract_application::run( )
 {
-    logger->info("Application {} started", program_name);
-    before_run();
-    loop.run();
-    after_run();
-    logger->info("Application {} stopped", program_name);
+    logger->info( "Application {} started", program_name );
+    before_run( );
+    loop.run( );
+    after_run( );
+    logger->info( "Application {} stopped", program_name );
 }
 
-logger_ptr abstract_application::configure_logger() const
+logger_ptr abstract_application::configure_logger( ) const
 {
     spdlog::level::level_enum log_level;
-    if (0 < args[app_options::PARAM_LOG_LEVEL].count())
+    if ( 0 < args[app_options::PARAM_LOG_LEVEL].count( ) )
     {
         try
         {
-            log_level = parse_arg_log_level();
+            log_level = parse_arg_log_level( );
         }
-        catch (std::invalid_argument& e)
+        catch ( std::invalid_argument& e )
         {
-            std::cerr << e.what() << std::endl;
+            std::cerr << e.what( ) << std::endl;
             std::cout << "Setting default logger level..." << std::endl;
             log_level = spdlog::level::info;
         }
@@ -46,39 +47,39 @@ logger_ptr abstract_application::configure_logger() const
         log_level = spdlog::level::trace;
     }
 
-    return create_logger(logger_constants::DEFAULT_LOGGER_NAME, log_level);
+    return create_logger( logger_constants::DEFAULT_LOGGER_NAME, log_level );
 }
 
-spdlog::level::level_enum abstract_application::parse_arg_log_level() const
+spdlog::level::level_enum abstract_application::parse_arg_log_level( ) const
 {
-    const auto log_level_str = args[app_options::PARAM_LOG_LEVEL].as<std::string>();
-    if (log_level_str.empty())
+    const auto log_level_str = args[app_options::PARAM_LOG_LEVEL].as< std::string >( );
+    if ( log_level_str.empty( ) )
     {
-        throw std::invalid_argument("Argument log-level is empty.");
+        throw std::invalid_argument( "Argument log-level is empty." );
     }
 
-    const std::unordered_map<std::string, spdlog::level::level_enum> level_map = {
-        { "trace", spdlog::level::trace },
-        { "debug", spdlog::level::debug },
-        { "info", spdlog::level::info },
-        { "warn", spdlog::level::warn },
-        { "error", spdlog::level::err },
+    const std::unordered_map< std::string, spdlog::level::level_enum > level_map = {
+        { "trace",    spdlog::level::trace    },
+        { "debug",    spdlog::level::debug    },
+        { "info",     spdlog::level::info     },
+        { "warn",     spdlog::level::warn     },
+        { "error",    spdlog::level::err      },
         { "critical", spdlog::level::critical },
-        { "off", spdlog::level::off }
+        { "off",      spdlog::level::off      }
     };
 
-    auto it = level_map.find(log_level_str);
-    if (it != level_map.end())
+    auto it = level_map.find( log_level_str );
+    if ( it != level_map.end( ) )
     {
         return it->second;
     }
-    throw std::invalid_argument("Invalid log-level: " + log_level_str);
+    throw std::invalid_argument( "Invalid log-level: " + log_level_str );
 }
 
-logger_ptr abstract_application::create_logger(const std::string& logger_name, const spdlog::level::level_enum log_level, const std::string& pattern)
+logger_ptr abstract_application::create_logger( const std::string& logger_name, const spdlog::level::level_enum log_level, const std::string& pattern )
 {
-    auto log = spdlog::stdout_color_mt(logger_name);
-    log->set_level(log_level);
-    log->set_pattern(pattern);
+    auto log = spdlog::stdout_color_mt( logger_name );
+    log->set_level( log_level );
+    log->set_pattern( pattern );
     return log;
 }

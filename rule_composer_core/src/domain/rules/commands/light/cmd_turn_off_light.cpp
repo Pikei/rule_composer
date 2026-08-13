@@ -10,8 +10,8 @@
 
 namespace command::light
 {
-    bool cmd_turn_off_light::is_supported_by(device& dev) const
+    bool cmd_turn_off_light::is_supported_by( device& dev ) const
     {
-        return dev.has_feature(device_feature::switchable) && (device_type::light == dev.get_type());
+        return dev.has_feature( device_feature::switchable ) && ( device_type::light == dev.get_type( ) );
     }
-} // command::light
+} // namespace command::light

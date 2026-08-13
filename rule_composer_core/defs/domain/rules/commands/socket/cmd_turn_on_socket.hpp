@@ -12,9 +12,10 @@ namespace command::socket
     class cmd_turn_on_socket : public command_interface
     {
     public:
-        bool is_supported_by(device& dev) const override;
+
+        bool is_supported_by( device& dev ) const override;
     };
 
-} // command::socket
+} // namespace command::socket
 
 #endif // RULE_COMPOSER_CMD_TURN_ON_SOCKET_HPP

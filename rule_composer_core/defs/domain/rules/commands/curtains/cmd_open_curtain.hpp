@@ -12,8 +12,9 @@ namespace command::curtain
     class cmd_open_curtain : public command_interface
     {
     public:
-        bool is_supported_by(device& dev) const override;
+
+        bool is_supported_by( device& dev ) const override;
     };
-} // command::curtain
+} // namespace command::curtain
 
 #endif // RULE_COMPOSER_CMD_OPEN_CURTAIN_HPP

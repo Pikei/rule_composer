@@ -10,31 +10,30 @@
 class command_dto
 {
 public:
-    explicit command_dto(action_type type) : type(type) { }
-    virtual ~command_dto() = default;
+
+    explicit command_dto( action_type type ) : type( type ) { }
+    virtual ~command_dto( ) = default;
 
     [[nodiscard]]
-    action_type get_type() const
+    action_type get_type( ) const
     {
         return type;
     }
 
 private:
+
     action_type type;
 };
 
-template <typename T>
-class parametrised_command_dto : public command_dto
+template < typename T > class parametrised_command_dto : public command_dto
 {
 public:
-    explicit parametrised_command_dto(action_type type, const T& value) : command_dto(type),
-                                                                          value(value) { }
-    const T& get_value() const
-    {
-        return value;
-    }
+
+    explicit parametrised_command_dto( action_type type, const T& value ) : command_dto( type ), value( value ) { }
+    const T& get_value( ) const { return value; }
 
 private:
+
     T value;
 };
 

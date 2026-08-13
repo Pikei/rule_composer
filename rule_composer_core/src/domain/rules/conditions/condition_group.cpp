@@ -5,24 +5,24 @@
 
 #include <domain/rules/conditions/condition_group.hpp>
 
-bool condition_group::evaluate(const context& ctx) const
+bool condition_group::evaluate( const context& ctx ) const
 {
-    if (op == logical_operator::AND)
+    if ( op == logical_operator::AND )
     {
-        for (const auto& child : children)
+        for ( const auto& child : children )
         {
-            if (!child->evaluate(ctx))
+            if ( !child->evaluate( ctx ) )
             {
                 return false;
             }
         }
         return true;
     }
-    if (op == logical_operator::OR)
+    if ( op == logical_operator::OR )
     {
-        for (const auto& child : children)
+        for ( const auto& child : children )
         {
-            if (child->evaluate(ctx))
+            if ( child->evaluate( ctx ) )
             {
                 return true;
             }
@@ -32,7 +32,7 @@ bool condition_group::evaluate(const context& ctx) const
     return false;
 }
 
-logical_operator condition_group::get_logical_operator() const
+logical_operator condition_group::get_logical_operator( ) const
 {
     return op;
 }

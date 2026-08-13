@@ -6,12 +6,12 @@
 #include <app/app_options.hpp>
 #include <app/application.hpp>
 
-int main(int argc, const char** argv)
+int main( int argc, const char** argv )
 {
     app_options options;
-    auto        args = options.parse(argc, argv);
+    auto        args = options.parse( argc, argv );
     application app { args };
-    app.run();
+    app.run( );
 
     return 0;
 }

@@ -26,74 +26,74 @@ enum class action_type : std::uint8_t
     set_temperature,
 };
 
-inline const char* to_string(action_type e)
+inline const char* to_string( action_type e )
 {
-    switch (e)
+    switch ( e )
     {
-    case action_type::turn_on_light:
-        return "turn_on_light";
-    case action_type::turn_off_light:
-        return "turn_off_light";
-    case action_type::set_brightness:
-        return "set_brightness";
-    case action_type::set_light_color:
-        return "set_light_color";
-    case action_type::turn_on_socket:
-        return "turn_on_socket";
-    case action_type::turn_off_socket:
-        return "turn_off_socket";
-    case action_type::open_curtain:
-        return "open_curtain";
-    case action_type::close_curtain:
-        return "close_curtain";
-    case action_type::set_curtain_position:
-        return "set_curtain_position";
-    case action_type::set_temperature:
-        return "set_temperature";
-    default:
-        return "unknown";
+        case action_type::turn_on_light:
+            return "turn_on_light";
+        case action_type::turn_off_light:
+            return "turn_off_light";
+        case action_type::set_brightness:
+            return "set_brightness";
+        case action_type::set_light_color:
+            return "set_light_color";
+        case action_type::turn_on_socket:
+            return "turn_on_socket";
+        case action_type::turn_off_socket:
+            return "turn_off_socket";
+        case action_type::open_curtain:
+            return "open_curtain";
+        case action_type::close_curtain:
+            return "close_curtain";
+        case action_type::set_curtain_position:
+            return "set_curtain_position";
+        case action_type::set_temperature:
+            return "set_temperature";
+        default:
+            return "unknown";
     }
 }
 
-inline action_type str_to_action_type(const std::string& str)
+inline action_type str_to_action_type( const std::string& str )
 {
-    if (to_string(action_type::turn_on_light) == str)
+    if ( to_string( action_type::turn_on_light ) == str )
     {
         return action_type::turn_on_light;
     }
-    if (to_string(action_type::turn_off_light) == str)
+    if ( to_string( action_type::turn_off_light ) == str )
     {
         return action_type::turn_off_light;
     }
-    if (to_string(action_type::set_brightness) == str)
+    if ( to_string( action_type::set_brightness ) == str )
     {
         return action_type::set_brightness;
     }
-    if (to_string(action_type::set_light_color) == str)
+    if ( to_string( action_type::set_light_color ) == str )
     {
         return action_type::set_light_color;
     }
-    if (to_string(action_type::turn_on_socket) == str)
+    if ( to_string( action_type::turn_on_socket ) == str )
     {
         return action_type::turn_on_socket;
     }
-    if (to_string(action_type::turn_off_socket) == str)
+    if ( to_string( action_type::turn_off_socket ) == str )
     {
         return action_type::turn_off_socket;
     }
-    if (to_string(action_type::open_curtain) == str)
+    if ( to_string( action_type::open_curtain ) == str )
     {
         return action_type::open_curtain;
     }
-    if (to_string(action_type::close_curtain) == str)
+    if ( to_string( action_type::close_curtain ) == str )
     {
         return action_type::close_curtain;
     }
-    if (to_string(action_type::set_curtain_position) == str)
+    if ( to_string( action_type::set_curtain_position ) == str )
     {
         return action_type::set_curtain_position;
     }
-    if (to_string(action_type::set_temperature) == str)
+    if ( to_string( action_type::set_temperature ) == str )
     {
         return action_type::set_temperature;
     }

@@ -12,8 +12,9 @@ namespace command::light
     class cmd_turn_off_light : public command_interface
     {
     public:
-        bool is_supported_by(device& dev) const override;
+
+        bool is_supported_by( device& dev ) const override;
     };
-}
+} // namespace command::light
 
 #endif // RULE_COMPOSER_CMD_TURN_OFF_LIGHT_HPP

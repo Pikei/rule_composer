@@ -6,22 +6,22 @@
 #include <app/app_options.hpp>
 #include <app/application.hpp>
 
-application::application(const cxxopts::ParseResult& args) :
+application::application( const cxxopts::ParseResult& args ) :
     abstract_application { args, app_options::PROGRAM_NAME },
-    parser { args[app_options::PARAM_CONFIG_PATH].as<std::string>(), logger }
+    parser { args[app_options::PARAM_CONFIG_PATH].as< std::string >( ), logger }
 {
 }
 
-void application::before_run()
+void application::before_run( )
 {
     try
     {
-        config_dto = parser.parse_config();
+        config_dto = parser.parse_config( );
     }
-    catch (std::exception& e)
+    catch ( std::exception& e )
     {
-        logger->error("Configuration parsing error: " + std::string { e.what() });
+        logger->error( "Configuration parsing error: " + std::string { e.what( ) } );
     }
-    engine = std::make_unique<rule_engine>(loop, logger, config_dto);
-    engine->start();
+    engine = std::make_unique< rule_engine >( loop, logger, config_dto );
+    engine->start( );
 }

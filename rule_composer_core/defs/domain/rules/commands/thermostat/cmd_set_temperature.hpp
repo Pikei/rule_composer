@@ -13,16 +13,18 @@ namespace command::thermostat
     class cmd_set_temperature : public command_interface
     {
     public:
-        explicit cmd_set_temperature(double temperature);
-        bool is_supported_by(device& dev) const override;
+
+        explicit cmd_set_temperature( double temperature );
+        bool is_supported_by( device& dev ) const override;
 
         [[nodiscard]]
-        double get_temperature() const;
+        double get_temperature( ) const;
 
     private:
+
         double temperature;
     };
 
-} // command::thermostat
+} // namespace command::thermostat
 
 #endif // RULE_COMPOSER_CMD_SET_TEMPERATURE_HPP
