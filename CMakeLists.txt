@@ -4,4 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(dependencies)
-add_subdirectory(rule_composer_core)
+add_subdirectory(rule_composer)
+#add_subdirectory(common)
+#add_subdirectory(rule_composer_core)
+#add_subdirectory(rule_composer_sim)

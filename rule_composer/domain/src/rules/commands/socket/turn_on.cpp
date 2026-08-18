@@ -1,0 +1,15 @@
+/**
+ * \file turn_on.cpp
+ * Created by Piotr Karol 2026
+ */
+
+#include <domain/entities/device.hpp>
+#include <domain/rules/commands/socket/turn_on.hpp>
+
+namespace rule_composer::domain::rules::commands::socket
+{
+    bool turn_on::is_supported_by( entities::device& dev ) const
+    {
+        return dev.has_feature( enums::device_feature::switchable ) && ( enums::device_type::electric_socket == dev.get_type( ) );
+    }
+} // namespace rule_composer::domain::rules::commands::socket
