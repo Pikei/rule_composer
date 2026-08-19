@@ -10,7 +10,6 @@ set(SOURCE_FILES
 
         src/util/config_parser.cpp
         src/util/domain_factory.cpp
-        ../simulator/src/main.cpp
 
 )
 
@@ -24,6 +23,7 @@ target_include_directories(${APP_NAME} PRIVATE defs defs/domain)
 target_link_libraries(${APP_NAME} PRIVATE
         rule_composer_lib
         rule_composer_domain
+        PahoMqttCpp::paho-mqttpp3
 )
 
 message(STATUS "Copying config directory")
