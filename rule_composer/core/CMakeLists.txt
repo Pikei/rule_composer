@@ -10,6 +10,7 @@ set(SOURCE_FILES
 
         src/util/config_parser.cpp
         src/util/domain_factory.cpp
+        ../simulator/src/main.cpp
 
 )
 
