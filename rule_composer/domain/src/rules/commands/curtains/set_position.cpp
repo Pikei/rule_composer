@@ -17,4 +17,9 @@ namespace rule_composer::domain::rules::commands::curtains
         return dev.has_feature( enums::device_feature::position ) && ( enums::device_type::curtain == dev.get_type( ) );
     }
 
+    std::uint8_t set_position::get_position_value( ) const
+    {
+        return position;
+    }
+
 } // namespace rule_composer::domain::rules::commands::curtains

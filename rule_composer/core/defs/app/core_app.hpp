@@ -10,6 +10,8 @@
 #include <rule_composer_lib/app/application.hpp>
 #include <util/config_parser.hpp>
 
+#include "comm/communication_hub.hpp"
+
 namespace rule_composer::core::app
 {
     class core_app : public lib::app::application
@@ -25,6 +27,7 @@ namespace rule_composer::core::app
         util::config_parser            parser;
         dto::configuration_dto         config_dto;
         std::unique_ptr< rule_engine > engine;
+        std::unique_ptr< comm::communication_hub > comm_hub;
     };
 } // namespace rule_composer::core::app
 

@@ -28,5 +28,9 @@ namespace rule_composer::core::app
         engine = std::make_unique< rule_engine >( loop, logger, args[app_options::PARAM_EVAL_INTERVAL].as< std::uint32_t >( ) );
         engine->parse_config_dto( config_dto );
         engine->start( );
+
+        comm_hub = std::make_unique< comm::communication_hub >( logger );
+        // TODO: server_uri and client_id from program options to start mqtt session
+        // TODO: callbacks to rule_engine and comm_hub for sending and receiving messages
     }
 } // namespace rule_composer::core::app

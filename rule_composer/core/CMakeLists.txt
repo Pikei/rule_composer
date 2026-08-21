@@ -10,6 +10,10 @@ set(SOURCE_FILES
 
         src/util/config_parser.cpp
         src/util/domain_factory.cpp
+        src/util/command_visitor.cpp
+        src/util/mqtt_command_visitor.cpp
+        src/comm/communication_hub.cpp
+        src/comm/mqtt_session.cpp
 
 )
 
@@ -18,7 +22,7 @@ find_package(gRPC CONFIG REQUIRED)
 
 add_executable(${APP_NAME} ${SOURCE_FILES})
 
-target_include_directories(${APP_NAME} PRIVATE defs defs/domain)
+target_include_directories(${APP_NAME} PRIVATE defs)
 
 target_link_libraries(${APP_NAME} PRIVATE
         rule_composer_lib

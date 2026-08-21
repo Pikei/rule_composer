@@ -18,6 +18,9 @@ namespace rule_composer::domain::rules::commands::curtains
         explicit set_position( std::uint8_t position );
         bool is_supported_by( entities::device& dev ) const override;
 
+        [[nodiscard]]
+        std::uint8_t get_position_value( ) const;
+
     private:
 
         std::uint8_t                  position;
