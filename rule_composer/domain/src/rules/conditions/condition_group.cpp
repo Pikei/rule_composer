@@ -7,7 +7,7 @@
 
 namespace rule_composer::domain::rules::conditions
 {
-    bool condition_group::evaluate( const context& ctx ) const
+    bool condition_group::evaluate( const context_interface& ctx ) const
     {
         if ( op == enums::logical_operator::AND )
         {

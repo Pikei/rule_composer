@@ -18,7 +18,7 @@ namespace rule_composer::lib::util
     public:
 
         virtual ~timer( );
-        void start( ) const;
+        void start( );
         void stop( );
 
         [[nodiscard]]
@@ -36,7 +36,7 @@ namespace rule_composer::lib::util
 
     private:
 
-        bool        running { false };
+        bool        running = false;
         static void on_trigger( evutil_socket_t fd, short events, void* arg );
     };
 } // namespace rule_composer::lib::util

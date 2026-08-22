@@ -8,8 +8,12 @@
 
 namespace rule_composer::core::app
 {
-    rule_engine::rule_engine( lib::util::event_loop& loop, std::shared_ptr< spdlog::logger >& logger_, std::uint32_t eval_interval_ ) :
+    rule_engine::rule_engine( lib::util::event_loop&             loop,
+                              std::shared_ptr< spdlog::logger >& logger_,
+                              std::uint32_t                      eval_interval_,
+                              domain::rules::context&            ctx_ ) :
         timer { loop, std::chrono::milliseconds { eval_interval_ }, [this] { evaluate_rules( ); } },
+        ctx { ctx_ },
         logger { logger_ }
     {
     }
@@ -29,6 +33,11 @@ namespace rule_composer::core::app
     void rule_engine::start( )
     {
         timer.start( );
+    }
+
+    void rule_engine::stop( )
+    {
+        timer.stop( );
     }
 
     void rule_engine::evaluate_rules( )

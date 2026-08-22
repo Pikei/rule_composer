@@ -16,6 +16,7 @@ namespace rule_composer::domain::enums
         time,
         weekday,
         temperature,
+        humidity,
     };
 } // namespace rule_composer::domain::enums
 
@@ -29,6 +30,8 @@ inline const char* to_string( rule_composer::domain::enums::condition_type condi
             return "weekday";
         case rule_composer::domain::enums::condition_type::temperature:
             return "temperature";
+        case rule_composer::domain::enums::condition_type::humidity:
+            return "humidity";
         default:
             return "unknown";
     }
@@ -47,6 +50,10 @@ inline rule_composer::domain::enums::condition_type str_to_condition_type( const
     if ( to_string( rule_composer::domain::enums::condition_type::temperature ) == str )
     {
         return rule_composer::domain::enums::condition_type::temperature;
+    }
+    if ( to_string( rule_composer::domain::enums::condition_type::humidity ) == str )
+    {
+        return rule_composer::domain::enums::condition_type::humidity;
     }
     return rule_composer::domain::enums::condition_type::unknown;
 }

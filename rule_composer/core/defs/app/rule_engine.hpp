@@ -19,14 +19,18 @@ namespace rule_composer::core::app
     {
     public:
 
-        explicit rule_engine( lib::util::event_loop& loop, std::shared_ptr< spdlog::logger >& logger_, std::uint32_t eval_interval_ );
+        explicit rule_engine( lib::util::event_loop&             loop,
+                              std::shared_ptr< spdlog::logger >& logger_,
+                              std::uint32_t                      eval_interval_,
+                              domain::rules::context&            ctx_ );
         void parse_config_dto( const dto::configuration_dto& config );
         void start( );
+        void stop( );
 
     private:
 
         lib::util::repeat_timer                                      timer;
-        domain::rules::context                                       ctx;
+        domain::rules::context&                                      ctx;
         std::map< domain::id_types::device_id, domain::rules::rule > rules;
         std::map< domain::id_types::rule_id, bool >                  triggered;
         std::shared_ptr< spdlog::logger >&                           logger;

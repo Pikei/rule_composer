@@ -32,12 +32,13 @@ namespace rule_composer::lib::util
         }
     }
 
-    void timer::start( ) const
+    void timer::start( )
     {
         timeval tv { };
         tv.tv_sec  = static_cast< long >( chrono.count( ) / 1000 );
         tv.tv_usec = static_cast< long >( ( chrono.count( ) % 1000 ) * 1000 );
         event_add( time_event, &tv );
+        running = true;
     }
 
     void timer::stop( )

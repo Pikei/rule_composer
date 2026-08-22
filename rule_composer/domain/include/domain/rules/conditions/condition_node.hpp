@@ -15,7 +15,7 @@ namespace rule_composer::domain::rules::conditions
 
         virtual ~condition_node( ) = default;
         [[nodiscard]]
-        virtual bool evaluate( const context& ctx ) const = 0;
+        virtual bool evaluate( const context_interface& ctx ) const = 0;
     };
 } // namespace rule_composer::domain::rules::conditions
 

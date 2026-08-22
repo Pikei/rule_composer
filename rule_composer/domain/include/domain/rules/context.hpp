@@ -25,6 +25,9 @@ namespace rule_composer::domain::rules
 
         [[nodiscard]]
         virtual double get_temperature( ) const = 0;
+
+        [[nodiscard]]
+        virtual double get_humidity( ) const = 0;
     };
 
     class context : public context_interface
@@ -39,27 +42,18 @@ namespace rule_composer::domain::rules
 
         [[nodiscard]]
         double get_temperature( ) const override;
-    };
-
-    class test_context : public context_interface
-    {
-    public:
 
         [[nodiscard]]
-        std::chrono::minutes get_current_time( ) const override
-        {
-            return std::chrono::minutes { 1200 };
-        }
-        [[nodiscard]]
-        enums::weekday get_weekday( ) const override
-        {
-            return enums::weekday::saturday;
-        }
-        [[nodiscard]]
-        double get_temperature( ) const override
-        {
-            return 22;
-        }
+        double get_humidity( ) const override;
+
+        void set_temperature( double temperature_ );
+
+        void set_humidity( double humidity_ );
+
+    private:
+
+        double temperature { };
+        double humidity { };
     };
 } // namespace rule_composer::domain::rules
 

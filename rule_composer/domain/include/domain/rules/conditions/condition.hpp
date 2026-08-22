@@ -23,7 +23,7 @@ namespace rule_composer::domain::rules::conditions
 
         explicit condition( enums::condition_type type, enums::comparison_operator comparison, condition_value value );
         [[nodiscard]]
-        bool evaluate( const context& ctx ) const override;
+        bool evaluate( const context_interface& ctx ) const override;
 
         [[nodiscard]]
         enums::condition_type get_type( ) const;
@@ -41,11 +41,13 @@ namespace rule_composer::domain::rules::conditions
         const condition_value            value;
 
         [[nodiscard]]
-        bool evaluate_time( const context& ctx ) const;
+        bool evaluate_time( const context_interface& ctx ) const;
         [[nodiscard]]
-        bool evaluate_weekday( const context& ctx ) const;
+        bool evaluate_weekday( const context_interface& ctx ) const;
         [[nodiscard]]
-        bool evaluate_temperature( const context& ctx ) const;
+        bool evaluate_temperature( const context_interface& ctx ) const;
+        [[nodiscard]]
+        bool evaluate_humidity( const context_interface& ctx ) const;
     };
 } // namespace rule_composer::domain::rules::conditions
 

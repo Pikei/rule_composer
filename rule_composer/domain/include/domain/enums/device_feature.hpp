@@ -17,7 +17,9 @@ namespace rule_composer::domain::enums
         brightness,
         rgb_control,
         position,
-        temperature,
+        temperature_control,
+        temperature_measurement,
+        humidity_measurement,
     };
 } // namespace rule_composer::domain::enums
 
@@ -33,8 +35,12 @@ inline const char* to_string( rule_composer::domain::enums::device_feature e )
             return "rgb_control";
         case rule_composer::domain::enums::device_feature::position:
             return "position";
-        case rule_composer::domain::enums::device_feature::temperature:
+        case rule_composer::domain::enums::device_feature::temperature_control:
             return "temperature";
+        case rule_composer::domain::enums::device_feature::temperature_measurement:
+            return "temperature_measurement";
+        case rule_composer::domain::enums::device_feature::humidity_measurement:
+            return "humidity_measurement";
         default:
             return "unknown";
     }
@@ -58,9 +64,17 @@ inline rule_composer::domain::enums::device_feature str_to_device_feature( const
     {
         return rule_composer::domain::enums::device_feature::position;
     }
-    if ( to_string( rule_composer::domain::enums::device_feature::temperature ) == str )
+    if ( to_string( rule_composer::domain::enums::device_feature::temperature_control ) == str )
     {
-        return rule_composer::domain::enums::device_feature::temperature;
+        return rule_composer::domain::enums::device_feature::temperature_control;
+    }
+    if ( to_string( rule_composer::domain::enums::device_feature::temperature_measurement ) == str )
+    {
+        return rule_composer::domain::enums::device_feature::temperature_measurement;
+    }
+    if ( to_string( rule_composer::domain::enums::device_feature::humidity_measurement ) == str )
+    {
+        return rule_composer::domain::enums::device_feature::humidity_measurement;
     }
     return rule_composer::domain::enums::device_feature::unknown;
 }

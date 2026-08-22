@@ -175,12 +175,12 @@ namespace rule_composer::simulator
 
     std::string sim_app::command_topic( ) const
     {
-        return "rule_composer/light/" + std::to_string( id ) + "/command";
+        return "rule_composer/command/light/" + std::to_string( id );
     }
 
     std::string sim_app::status_topic( ) const
     {
-        return "rule_composer/light/" + std::to_string( id ) + "/status";
+        return "rule_composer/status/light/" + std::to_string( id );
     }
 
 } // namespace rule_composer::simulator

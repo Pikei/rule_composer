@@ -25,6 +25,8 @@ namespace rule_composer::core::comm
         void mqtt_subscribe( const std::string& topic, std::uint8_t qos );
         void mqtt_unsubscribe( const std::string& topic );
         void mqtt_publish( const std::string& topic, const std::string& payload, uint8_t qos, uint8_t retained );
+        void mqtt_add_event_listener( std::function< void( const event_mqtt_received& cb ) > callback );
+        void mqtt_add_event_listener( std::function< void( const event_mqtt_connection_status& cb ) > callback );
 
     private:
 

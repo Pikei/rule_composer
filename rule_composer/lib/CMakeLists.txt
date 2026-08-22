@@ -8,6 +8,7 @@ set(LIB_SRC
         src/util/timeout_timer.cpp
         src/util/repeat_timer.cpp
         src/util/json_utils.cpp
+        src/util/str_util.cpp
 )
 
 add_library(${LIB_NAME} ${LIB_SRC})

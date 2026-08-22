@@ -24,7 +24,7 @@ namespace rule_composer::domain::rules::conditions
         }
 
         [[nodiscard]]
-        bool evaluate( const context& ctx ) const override;
+        bool evaluate( const context_interface& ctx ) const override;
 
         [[nodiscard]]
         enums::logical_operator get_logical_operator( ) const;

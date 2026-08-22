@@ -14,6 +14,7 @@ set(SOURCE_FILES
         src/util/mqtt_command_visitor.cpp
         src/comm/communication_hub.cpp
         src/comm/mqtt_session.cpp
+        defs/comm/event_mqtt_received.hpp
 
 )
 

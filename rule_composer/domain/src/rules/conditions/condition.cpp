@@ -15,7 +15,7 @@ namespace rule_composer::domain::rules::conditions
     {
     }
 
-    bool condition::evaluate( const context& ctx ) const
+    bool condition::evaluate( const context_interface& ctx ) const
     {
         if ( type == enums::condition_type::time )
         {
@@ -28,6 +28,10 @@ namespace rule_composer::domain::rules::conditions
         if ( type == enums::condition_type::temperature )
         {
             return evaluate_temperature( ctx );
+        }
+        if ( type == enums::condition_type::humidity )
+        {
+            return evaluate_humidity( ctx );
         }
         return false;
     }
@@ -47,7 +51,7 @@ namespace rule_composer::domain::rules::conditions
         return value;
     }
 
-    bool condition::evaluate_time( const context& ctx ) const
+    bool condition::evaluate_time( const context_interface& ctx ) const
     {
         switch ( comparison )
         {
@@ -68,7 +72,7 @@ namespace rule_composer::domain::rules::conditions
         }
     }
 
-    bool condition::evaluate_weekday( const context& ctx ) const
+    bool condition::evaluate_weekday( const context_interface& ctx ) const
     {
         auto condition_weekday = static_cast< std::uint8_t >( std::get< enums::weekday >( value ) );
         auto context_weekday   = static_cast< std::uint8_t >( ctx.get_weekday( ) );
@@ -92,7 +96,7 @@ namespace rule_composer::domain::rules::conditions
         }
     }
 
-    bool condition::evaluate_temperature( const context& ctx ) const
+    bool condition::evaluate_temperature( const context_interface& ctx ) const
     {
         switch ( comparison )
         {
@@ -108,6 +112,27 @@ namespace rule_composer::domain::rules::conditions
                 return std::get< double >( value ) < ctx.get_temperature( );
             case enums::comparison_operator::less_equal:
                 return std::get< double >( value ) <= ctx.get_temperature( );
+            default:
+                return false;
+        }
+    }
+
+    bool condition::evaluate_humidity( const context_interface& ctx ) const
+    {
+        switch ( comparison )
+        {
+            case enums::comparison_operator::equal:
+                return std::get< double >( value ) == ctx.get_humidity( );
+            case enums::comparison_operator::not_equal:
+                return std::get< double >( value ) != ctx.get_humidity( );
+            case enums::comparison_operator::greater:
+                return std::get< double >( value ) > ctx.get_humidity( );
+            case enums::comparison_operator::greater_equal:
+                return std::get< double >( value ) >= ctx.get_humidity( );
+            case enums::comparison_operator::less:
+                return std::get< double >( value ) < ctx.get_humidity( );
+            case enums::comparison_operator::less_equal:
+                return std::get< double >( value ) <= ctx.get_humidity( );
             default:
                 return false;
         }

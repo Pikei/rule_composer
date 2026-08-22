@@ -6,16 +6,23 @@
 #ifndef RULE_COMPOSER_MQTT_SESSION_HPP
 #define RULE_COMPOSER_MQTT_SESSION_HPP
 
+#include <comm/event_mqtt_received.hpp>
 #include <mqtt/async_client.h>
 #include <mqtt/callback.h>
+#include <rule_composer_lib/util/event_listener.hpp>
 #include <spdlog/spdlog.h>
 
 namespace rule_composer::core::comm
 {
 
-    class mqtt_session : public mqtt::callback
+    class mqtt_session : public mqtt::callback,
+                         public lib::util::event_listener< event_mqtt_received >,
+                         public lib::util::event_listener< event_mqtt_connection_status >
     {
     public:
+
+        using lib::util::event_listener< event_mqtt_received >::add_event_listener;
+        using lib::util::event_listener< event_mqtt_connection_status >::add_event_listener;
 
         explicit mqtt_session( const std::shared_ptr< spdlog::logger >& logger, const std::string& server_uri, const std::string& client_id );
 

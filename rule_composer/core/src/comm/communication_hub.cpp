@@ -3,6 +3,8 @@
  * Created by Piotr Karol 2026
  */
 
+#include <utility>
+
 #include <comm/communication_hub.hpp>
 
 namespace rule_composer::core::comm
@@ -37,6 +39,16 @@ namespace rule_composer::core::comm
     void communication_hub::mqtt_publish( const std::string& topic, const std::string& payload, std::uint8_t qos, std::uint8_t retained )
     {
         mqtt->publish( topic, payload, qos, retained );
+    }
+
+    void communication_hub::mqtt_add_event_listener( std::function< void( const event_mqtt_received& cb ) > callback )
+    {
+        mqtt->add_event_listener( std::move( callback ) );
+    }
+
+    void communication_hub::mqtt_add_event_listener( std::function< void( const event_mqtt_connection_status& cb ) > callback )
+    {
+        mqtt->add_event_listener( std::move( callback ) );
     }
 
 } // namespace rule_composer::core::comm

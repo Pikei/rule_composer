@@ -22,22 +22,16 @@ namespace rule_composer::core::comm
         mqtt::connect_options opts;
         opts.set_automatic_reconnect( true );
         opts.set_clean_session( true );
-
-        try
-        {
-            client->connect( opts )->try_wait( );
-            logger->info( "MQTT session connected to broker: {}", server_uri );
-        }
-        catch ( const mqtt::exception& e )
-        {
-            logger->error( e.what( ) );
-        }
+        client->connect( opts )->wait( );
+        logger->info( "MQTT session connected to broker: {}", server_uri );
     }
 
     void mqtt_session::disconnect( )
     {
         client->disconnect( );
-        logger->info( "MQTT session disconnected." );
+        std::string disconnect_reason = "MQTT session disconnected successfully.";
+        logger->info( disconnect_reason );
+        event_listener< event_mqtt_connection_status >::notify( { false, disconnect_reason } );
     }
 
     void mqtt_session::subscribe( const std::string& topic, std::uint8_t qos )
@@ -59,11 +53,13 @@ namespace rule_composer::core::comm
     void mqtt_session::connected( const mqtt::string& cause )
     {
         logger->info( "MQTT session connected: {}", cause );
+        event_listener< event_mqtt_connection_status >::notify( { true } );
     }
 
     void mqtt_session::connection_lost( const mqtt::string& cause )
     {
         logger->warn( "MQTT connection lost: {}", cause );
+        event_listener< event_mqtt_connection_status >::notify( { false, cause } );
     }
 
     void mqtt_session::delivery_complete( mqtt::delivery_token_ptr element )
@@ -73,7 +69,8 @@ namespace rule_composer::core::comm
 
     void mqtt_session::message_arrived( mqtt::const_message_ptr message )
     {
-        // TODO: callback to communication_hub
+        logger->debug( "MQTT session message: {}", message->get_topic( ) );
+        event_listener< event_mqtt_received >::notify( event_mqtt_received { message->get_topic( ), message->get_payload_str( ) } );
     }
 
 } // namespace rule_composer::core::comm

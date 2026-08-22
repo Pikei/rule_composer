@@ -23,6 +23,15 @@ namespace rule_composer::core::app
 
         static constexpr auto PARAM_EVAL_INTERVAL = "eval-interval";
         static constexpr auto DESC_EVAL_INTERVAL  = "Optional parameter used to specify interval of evaluation of rules conditions in milliseconds.";
+
+        static constexpr auto PARAM_MQTT_RECONNECT_INTERVAL = "mqtt-reconnect-interval";
+        static constexpr auto DESC_MQTT_RECONNECT_INTERVAL  = "Optional parameter used to specify the retry interval for opening an MQTT session in seconds.";
+
+        static constexpr auto PARAM_MQTT_BROKER_URI = "mqtt-broker-uri";
+        static constexpr auto DESC_MQTT_BROKER_URI  = "Optional parameter used to specify MQTT broker URI";
+
+        static constexpr auto PARAM_MQTT_ID = "mqtt-id";
+        static constexpr auto DESC_MQTT_ID  = "Optional parameter used to specify MQTT client ID";
     };
 } // namespace rule_composer::core::app
 

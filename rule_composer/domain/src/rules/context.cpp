@@ -47,7 +47,22 @@ namespace rule_composer::domain::rules
 
     double context::get_temperature( ) const
     {
-        // TODO: Add temperature_sensor device type, and handle temperature updates.
-        return 22; // Temporary default room temperature in Celsius
+        return temperature;
     }
+
+    double context::get_humidity( ) const
+    {
+        return humidity;
+    }
+
+    void context::set_temperature( const double temperature_ )
+    {
+        temperature = temperature_;
+    }
+
+    void context::set_humidity( double humidity_ )
+    {
+        humidity = humidity_;
+    }
+
 } // namespace rule_composer::domain::rules

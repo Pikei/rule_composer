@@ -17,6 +17,7 @@ namespace rule_composer::domain::enums
         curtain,
         electric_socket,
         thermostat,
+        sensor,
     };
 } // namespace rule_composer::domain::enums
 
@@ -32,6 +33,8 @@ inline const char* to_string( const rule_composer::domain::enums::device_type ty
             return "electric_socket";
         case rule_composer::domain::enums::device_type::thermostat:
             return "thermostat";
+        case rule_composer::domain::enums::device_type::sensor:
+            return "sensor";
         default:
             return "unknown";
     }
@@ -54,6 +57,10 @@ inline rule_composer::domain::enums::device_type str_to_device_type( const std::
     if ( str == to_string( rule_composer::domain::enums::device_type::thermostat ) )
     {
         return rule_composer::domain::enums::device_type::thermostat;
+    }
+    if ( str == to_string( rule_composer::domain::enums::device_type::sensor ) )
+    {
+        return rule_composer::domain::enums::device_type::sensor;
     }
     return rule_composer::domain::enums::device_type::unknown;
 }
